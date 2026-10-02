@@ -1,7 +1,7 @@
 ## 1. Identificação da equipe
 
 **Projeto:** ERP — Rota dos Temperos  
-**Disciplina:** Projeto Integrador — Modelagem de Dados
+**Disciplina:** Modelagem de Banco de Dados
 
 ### Integrantes
 
