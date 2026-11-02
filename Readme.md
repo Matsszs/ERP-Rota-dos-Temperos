@@ -81,23 +81,24 @@ A normalização é demonstrada até a terceira forma normal:
 
 ## 6. Implementação e execução do SQL
 
-O banco foi implementado em **MySQL 8.0.16 ou superior**. O script `erp_rota_dos_temperos_mysql.sql` contém:
+O banco foi implementado em **MySQL 8.0.16 ou superior**. Para facilitar a execução e a demonstração, os comandos SQL foram separados em quatro arquivos, na ordem abaixo:
 
-- criação do banco e das 20 tabelas;
-- definição de PK, FK e restrições, como `NOT NULL`, `DEFAULT` e `CHECK`;
-- inserção de dados fictícios para teste;
-- consultas gerenciais com `SELECT`, `JOIN`, `WHERE` e `GROUP BY`;
-- consultas de auditoria para verificar possíveis excessos de movimentação ou liquidação, parcelas atrasadas e diferenças entre os valores dos pedidos/compras e seus itens;
-- exemplos de `UPDATE` e `DELETE`.
+| Ordem | Arquivo | Conteúdo |
+|---|---|---|
+| 1 | `sql/01_criacao_banco.sql` | Cria o banco e as 20 tabelas, sem inserir registros. |
+| 2 | `sql/02_carga_valida.sql` | Insere dados fictícios válidos para testar cadastros, vendas, compras, estoque e financeiro. |
+| 3 | `sql/03_carga_invalida.sql` | Apresenta tentativas de inserção que devem ser bloqueadas pelas restrições do banco. Execute cada tentativa separadamente. |
+| 4 | `sql/04_consultas.sql` | Reúne consultas gerenciais, consultas de auditoria e exemplos de `UPDATE` e `DELETE`. |
 
 ### Como executar
 
-1. Abra o MySQL Workbench e conecte-se a um servidor MySQL 8.0.16 ou superior.
-2. Abra o arquivo `erp_rota_dos_temperos_mysql.sql`.
-3. Execute o script completo em um ambiente de teste no qual o banco `erp_rota_temperos` ainda não exista.
-4. Atualize a lista de schemas e confira o banco `erp_rota_temperos` e suas tabelas.
+1. Conecte-se a um servidor MySQL 8.0.16 ou superior.
+2. Execute `01_criacao_banco.sql` em um ambiente de teste no qual o banco `erp_rota_temperos` ainda não exista. Esse arquivo cria a estrutura vazia.
+3. Execute `02_carga_valida.sql` uma única vez para inserir os dados fictícios.
+4. Execute cada `INSERT` de `03_carga_invalida.sql` separadamente. O resultado esperado é que o MySQL rejeite as três tentativas por violação de `CHECK`, chave estrangeira (`FOREIGN KEY`) e `NOT NULL`.
+5. Execute `04_consultas.sql` para visualizar as consultas gerenciais e de auditoria. Os comandos `UPDATE` e `DELETE` estão no final desse arquivo como exemplos sobre registros de teste.
 
-**Atenção:** o script utiliza `CREATE DATABASE` sem `IF NOT EXISTS`. Por isso, deve ser executado uma vez em um ambiente de teste sem outro banco com esse nome. Os CPFs, CNPJs, nomes e demais registros inseridos no script são fictícios e servem somente para demonstração.
+**Atenção:** `01_criacao_banco.sql` utiliza `CREATE DATABASE` sem `IF NOT EXISTS`. Portanto, deve ser executado uma vez em um ambiente em que ainda não exista um banco com esse nome. A carga válida também deve ser executada uma única vez para evitar duplicidade de registros. Os CPFs, CNPJs, nomes e demais registros inseridos são fictícios e servem somente para demonstração.
 
 ## 7. Testes realizados
 
@@ -130,21 +131,30 @@ Os dados organizados podem apoiar indicadores de estoque, produtos mais vendidos
 
 Como evolução futura, o histórico de vendas poderá ser utilizado para estudar a previsão de demanda por produto. Essa previsão com Inteligência Artificial é uma possibilidade de evolução e **não está implementada no script atual**. O mesmo vale para a construção de dashboards de BI: são possibilidades de análise a partir dos dados estruturados.
 
-## 10. Arquivos do repositório
+## 10. Organização do repositório
 
-| Arquivo | Descrição |
-|---|---|
-| `ERP_Rota_dos_Temperos_Entrega_Final.pdf` | Documentação técnica da entrega final. |
-| `DER_atualizado.png` | Diagrama Entidade-Relacionamento atualizado. |
-| `DER_revisado.mmd` | Código-fonte do diagrama em Mermaid. |
-| `dicionario_dados_revisado.csv` | Dicionário de dados atualizado. |
-| `erp_rota_dos_temperos_mysql.sql` | Script de criação, dados de teste e consultas SQL. |
-| `Fluxograma_Venda.png` | Fluxograma do processo de venda. |
-| `Fluxograma_Compra.png` | Fluxograma do processo de compra. |
-| `Fluxograma_Estoque.png` | Fluxograma do processo de estoque. |
-| `Fluxograma_Financeiro.png` | Fluxograma do processo financeiro. |
+Os arquivos estão organizados em pastas para facilitar a consulta:
 
-Os arquivos devem ser mantidos na raiz do repositório com esses nomes para que os links e referências do README sejam localizados corretamente.
+```text
+ERP-Rota-dos-Temperos/
+├── README.md
+├── docs/
+│   ├── ERP_Rota_dos_Temperos_Entrega_Final.pdf
+│   ├── DER_atualizado.png
+│   └── dicionario_dados_revisado.csv
+├── sql/
+│   ├── 01_criacao_banco.sql
+│   ├── 02_carga_valida.sql
+│   ├── 03_carga_invalida.sql
+│   └── 04_consultas.sql
+└── evidencias/
+    ├── 01-estrutura-banco.png
+    ├── 02-relacionamento-pedidos.png
+    ├── 03-testes-integridade.png
+    └── 04-carga-invalida-restricoes.png
+```
+
+O histórico de commits do repositório registra a evolução dos arquivos. As evidências de execução mostram a criação das tabelas, os relacionamentos consultados e os testes de integridade realizados no MySQL Workbench.
 
 ## 11. Conclusão
 
