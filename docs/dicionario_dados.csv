@@ -1,0 +1,94 @@
+﻿Tabela;Atributo;Tipo SQL;PK;FK;NULL permitido;Referência FK;UNIQUE;DEFAULT;Descrição / regra
+PESSOA;cpf;CHAR(11);Sim;Não;Não;—;Não;—;CPF que identifica a pessoa.
+PESSOA;nome;VARCHAR(150);Não;Não;Não;—;Não;—;Nome completo da pessoa.
+PESSOA_TELEFONE;cpf;CHAR(11);Sim;Sim;Não;PESSOA.cpf;Não;—;CPF da pessoa relacionada (FK para PESSOA).
+PESSOA_TELEFONE;telefone;VARCHAR(20);Sim;Não;Não;—;Não;—;Número de telefone cadastrado para a pessoa.
+PESSOA_EMAIL;cpf;CHAR(11);Sim;Sim;Não;PESSOA.cpf;Não;—;CPF da pessoa relacionada (FK para PESSOA).
+PESSOA_EMAIL;email;VARCHAR(150);Sim;Não;Não;—;Não;—;Endereço de e-mail cadastrado para a pessoa.
+PESSOA_ENDERECO;cpf;CHAR(11);Sim;Sim;Não;PESSOA.cpf;Não;—;CPF da pessoa relacionada (FK para PESSOA).
+PESSOA_ENDERECO;endereco;VARCHAR(255);Sim;Não;Não;—;Não;—;Endereço cadastrado para a pessoa.
+CLIENTE;cnpj;CHAR(14);Sim;Não;Não;—;Não;—;CNPJ que identifica o estabelecimento cliente.
+CLIENTE;razao_social;VARCHAR(150);Não;Não;Não;—;Não;—;Razão social do estabelecimento.
+CLIENTE;nome_fantasia;VARCHAR(150);Não;Não;Sim;—;Não;—;Nome fantasia do estabelecimento, quando houver.
+CLIENTE;observacao;TEXT;Não;Não;Sim;—;Não;—;Observações adicionais sobre o cadastro do cliente.
+CLIENTE_CONTATO;cnpj;CHAR(14);Sim;Sim;Não;CLIENTE.cnpj;Não;—;CNPJ do estabelecimento cliente (FK para CLIENTE).
+CLIENTE_CONTATO;cpf;CHAR(11);Sim;Sim;Não;PESSOA.cpf;Não;—;CPF da pessoa que representa ou atende o estabelecimento (FK para PESSOA).
+FUNCIONARIO;cpf;CHAR(11);Sim;Sim;Não;PESSOA.cpf;Não;—;"CPF do funcionário; também referencia o cadastro em PESSOA."
+FUNCIONARIO;cargo;VARCHAR(80);Não;Não;Não;—;Não;—;Cargo ou função exercida pelo funcionário.
+FUNCIONARIO;data_admissao;DATE;Não;Não;Não;—;Não;—;Data de admissão do funcionário.
+FUNCIONARIO;salario;DECIMAL(10,2);Não;Não;Não;—;Não;—;"Salário cadastrado para o funcionário; não pode ser negativo."
+FORNECEDOR;cnpj;CHAR(14);Sim;Não;Não;—;Não;—;CNPJ que identifica o fornecedor.
+FORNECEDOR;razao_social;VARCHAR(150);Não;Não;Não;—;Não;—;Razão social do fornecedor.
+FORNECEDOR;telefone;VARCHAR(20);Não;Não;Sim;—;Não;—;Telefone de contato do fornecedor, quando informado.
+FORNECEDOR;email;VARCHAR(150);Não;Não;Sim;—;Não;—;E-mail de contato do fornecedor, quando informado.
+FORNECEDOR;endereco;VARCHAR(255);Não;Não;Sim;—;Não;—;Endereço do fornecedor, quando informado.
+PRODUTO;codigo_produto;VARCHAR(20);Sim;Não;Não;—;Não;—;Código que identifica o produto.
+PRODUTO;nome;VARCHAR(120);Não;Não;Não;—;Não;—;Nome do produto.
+PRODUTO;categoria;VARCHAR(80);Não;Não;Não;—;Não;—;Categoria à qual o produto pertence.
+PRODUTO;unidade_medida;VARCHAR(20);Não;Não;Não;—;Não;—;Unidade utilizada para controlar a quantidade do produto.
+PRODUTO;preco_venda;DECIMAL(10,2);Não;Não;Não;—;Não;—;Preço atual de venda do produto.
+PRODUTO;estoque_minimo;DECIMAL(10,3);Não;Não;Não;—;Não;0;Quantidade mínima desejada para acompanhamento do estoque.
+PRODUTO;quantidade_inicial;DECIMAL(10,3);Não;Não;Não;—;Não;0;Quantidade existente na data da contagem inicial.
+PRODUTO;data_contagem;DATE;Não;Não;Não;—;Não;—;Data usada como referência para a quantidade inicial do estoque.
+PEDIDO;id_pedido;INT;Sim;Não;Não;—;Não;—;Identificador do pedido de venda.
+PEDIDO;data_pedido;DATE;Não;Não;Não;—;Não;—;Data em que o pedido foi registrado.
+PEDIDO;status;VARCHAR(20);Não;Não;Não;—;Não;ABERTO;Situação atual do pedido: ABERTO, PARCIAL, CONCLUIDO ou CANCELADO.
+PEDIDO;valor_total;DECIMAL(10,2);Não;Não;Não;—;Não;0;Valor total registrado para o pedido.
+PEDIDO;desconto;DECIMAL(10,2);Não;Não;Não;—;Não;0;Valor de desconto aplicado ao pedido.
+PEDIDO;cnpj_cliente;CHAR(14);Não;Sim;Sim;CLIENTE.cnpj;Não;—;"CNPJ do cliente; pode ficar vazio em uma venda avulsa (FK para CLIENTE)."
+PEDIDO;cpf_funcionario;CHAR(11);Não;Sim;Não;FUNCIONARIO.cpf;Não;—;CPF do funcionário responsável pelo atendimento (FK para FUNCIONARIO).
+PEDIDO;cpf_aprovador;CHAR(11);Não;Sim;Sim;FUNCIONARIO.cpf;Não;—;CPF do funcionário que aprovou o desconto, quando aplicável (FK para FUNCIONARIO).
+PEDIDO;data_cancelamento;DATE;Não;Não;Sim;—;Não;—;Data do cancelamento, quando o pedido for cancelado.
+PEDIDO;motivo_cancelamento;VARCHAR(255);Não;Não;Sim;—;Não;—;Motivo informado para o cancelamento, quando houver.
+ORDEM_COMPRA;numero_ordem_compra;INT;Sim;Não;Não;—;Não;—;Número que identifica a ordem de compra.
+ORDEM_COMPRA;data_ordem;DATE;Não;Não;Não;—;Não;—;Data em que a ordem de compra foi registrada.
+ORDEM_COMPRA;status;VARCHAR(20);Não;Não;Não;—;Não;ABERTA;Situação da compra: ABERTA, PARCIAL, RECEBIDA ou CANCELADA.
+ORDEM_COMPRA;valor_total;DECIMAL(10,2);Não;Não;Não;—;Não;0;Valor total registrado para a ordem de compra.
+ORDEM_COMPRA;cnpj_fornecedor;CHAR(14);Não;Sim;Não;FORNECEDOR.cnpj;Não;—;CNPJ do fornecedor relacionado à compra (FK para FORNECEDOR).
+ORDEM_COMPRA;cpf_funcionario;CHAR(11);Não;Sim;Não;FUNCIONARIO.cpf;Não;—;CPF do funcionário que registrou a compra (FK para FUNCIONARIO).
+ORDEM_COMPRA;data_cancelamento;DATE;Não;Não;Sim;—;Não;—;Data do cancelamento, quando a ordem for cancelada.
+ORDEM_COMPRA;motivo_cancelamento;VARCHAR(255);Não;Não;Sim;—;Não;—;Motivo informado para o cancelamento, quando houver.
+ITEM_PEDIDO;id_pedido;INT;Sim;Sim;Não;PEDIDO.id_pedido;Não;—;Identificador do pedido ao qual o item pertence (FK para PEDIDO).
+ITEM_PEDIDO;codigo_produto;VARCHAR(20);Sim;Sim;Não;PRODUTO.codigo_produto;Não;—;Código do produto vendido (FK para PRODUTO).
+ITEM_PEDIDO;quantidade;DECIMAL(10,3);Não;Não;Não;—;Não;—;Quantidade do produto incluída no pedido.
+ITEM_PEDIDO;preco_unitario;DECIMAL(10,2);Não;Não;Não;—;Não;—;Preço unitário praticado na venda.
+ITEM_ORDEM_COMPRA;numero_ordem_compra;INT;Sim;Sim;Não;ORDEM_COMPRA.numero_ordem_compra;Não;—;Número da ordem de compra à qual o item pertence (FK para ORDEM_COMPRA).
+ITEM_ORDEM_COMPRA;codigo_produto;VARCHAR(20);Sim;Sim;Não;PRODUTO.codigo_produto;Não;—;Código do produto comprado (FK para PRODUTO).
+ITEM_ORDEM_COMPRA;quantidade;DECIMAL(10,3);Não;Não;Não;—;Não;—;Quantidade do produto solicitada na compra.
+ITEM_ORDEM_COMPRA;preco_unitario;DECIMAL(10,2);Não;Não;Não;—;Não;—;Preço unitário praticado na compra.
+MOVIMENTACAO_SAIDA;id_pedido;INT;Sim;Sim;Não;ITEM_PEDIDO.id_pedido;Não;—;Pedido relacionado à saída (parte da FK composta para ITEM_PEDIDO).
+MOVIMENTACAO_SAIDA;codigo_produto;VARCHAR(20);Sim;Sim;Não;ITEM_PEDIDO.codigo_produto;Não;—;Produto relacionado à saída (parte da FK composta para ITEM_PEDIDO).
+MOVIMENTACAO_SAIDA;numero_entrega;INT;Sim;Não;Não;—;Não;—;Número sequencial que diferencia as entregas do mesmo item.
+MOVIMENTACAO_SAIDA;quantidade;DECIMAL(10,3);Não;Não;Não;—;Não;—;Quantidade retirada do estoque nessa entrega.
+MOVIMENTACAO_SAIDA;data_movimentacao;DATE;Não;Não;Não;—;Não;—;Data em que a saída do estoque ocorreu.
+MOVIMENTACAO_ENTRADA;numero_ordem_compra;INT;Sim;Sim;Não;ITEM_ORDEM_COMPRA.numero_ordem_compra;Não;—;Ordem de compra relacionada à entrada (parte da FK composta para ITEM_ORDEM_COMPRA).
+MOVIMENTACAO_ENTRADA;codigo_produto;VARCHAR(20);Sim;Sim;Não;ITEM_ORDEM_COMPRA.codigo_produto;Não;—;Produto relacionado à entrada (parte da FK composta para ITEM_ORDEM_COMPRA).
+MOVIMENTACAO_ENTRADA;numero_recebimento;INT;Sim;Não;Não;—;Não;—;Número sequencial que diferencia os recebimentos do mesmo item.
+MOVIMENTACAO_ENTRADA;quantidade;DECIMAL(10,3);Não;Não;Não;—;Não;—;Quantidade recebida nessa movimentação.
+MOVIMENTACAO_ENTRADA;data_movimentacao;DATE;Não;Não;Não;—;Não;—;Data em que a entrada no estoque ocorreu.
+CONTAS_A_RECEBER;id_pedido;INT;Sim;Sim;Não;PEDIDO.id_pedido;Não;—;Pedido que originou o valor a receber (FK para PEDIDO).
+CONTAS_A_RECEBER;numero_parcela;INT;Sim;Não;Não;—;Não;—;Número da parcela dentro do pedido.
+CONTAS_A_RECEBER;valor;DECIMAL(10,2);Não;Não;Não;—;Não;—;Valor original da parcela a receber.
+CONTAS_A_RECEBER;data_vencimento;DATE;Não;Não;Não;—;Não;—;Data de vencimento da parcela.
+CONTAS_A_RECEBER;status;VARCHAR(20);Não;Não;Não;—;Não;ABERTA;Situação da parcela: ABERTA, PARCIAL, PAGA, ATRASADA ou CANCELADA.
+RECEBIMENTO;id_pedido;INT;Sim;Sim;Não;CONTAS_A_RECEBER.id_pedido;Não;—;Pedido relacionado à parcela recebida (parte da FK composta para CONTAS_A_RECEBER).
+RECEBIMENTO;numero_parcela;INT;Sim;Sim;Não;CONTAS_A_RECEBER.numero_parcela;Não;—;Parcela relacionada ao recebimento (parte da FK composta para CONTAS_A_RECEBER).
+RECEBIMENTO;numero_recebimento;INT;Sim;Não;Não;—;Não;—;Número sequencial que diferencia recebimentos parciais da mesma parcela.
+RECEBIMENTO;valor_recebido;DECIMAL(10,2);Não;Não;Não;—;Não;—;Valor efetivamente recebido nessa ocorrência.
+RECEBIMENTO;data_recebimento;DATE;Não;Não;Não;—;Não;—;Data em que o dinheiro foi recebido.
+RECEBIMENTO;forma_pagamento;VARCHAR(30);Não;Não;Não;—;Não;—;Forma utilizada no recebimento, como Pix, boleto ou transferência.
+CONTAS_A_PAGAR;numero_ordem_compra;INT;Sim;Sim;Não;ORDEM_COMPRA.numero_ordem_compra;Não;—;Ordem de compra que originou o valor a pagar (FK para ORDEM_COMPRA).
+CONTAS_A_PAGAR;numero_parcela;INT;Sim;Não;Não;—;Não;—;Número da parcela dentro da ordem de compra.
+CONTAS_A_PAGAR;valor;DECIMAL(10,2);Não;Não;Não;—;Não;—;Valor original da parcela a pagar.
+CONTAS_A_PAGAR;data_vencimento;DATE;Não;Não;Não;—;Não;—;Data de vencimento da parcela.
+CONTAS_A_PAGAR;status;VARCHAR(20);Não;Não;Não;—;Não;ABERTA;Situação da parcela: ABERTA, PARCIAL, PAGA, ATRASADA ou CANCELADA.
+CONTAS_A_PAGAR;numero_boleto;VARCHAR(60);Não;Não;Sim;—;Não;—;Número ou referência do boleto, quando houver.
+PAGAMENTO;numero_ordem_compra;INT;Sim;Sim;Não;CONTAS_A_PAGAR.numero_ordem_compra;Não;—;Ordem de compra relacionada à parcela paga (parte da FK composta para CONTAS_A_PAGAR).
+PAGAMENTO;numero_parcela;INT;Sim;Sim;Não;CONTAS_A_PAGAR.numero_parcela;Não;—;Parcela relacionada ao pagamento (parte da FK composta para CONTAS_A_PAGAR).
+PAGAMENTO;numero_pagamento;INT;Sim;Não;Não;—;Não;—;Número sequencial que diferencia pagamentos parciais da mesma parcela.
+PAGAMENTO;valor_pago;DECIMAL(10,2);Não;Não;Não;—;Não;—;Valor efetivamente pago nessa ocorrência.
+PAGAMENTO;data_pagamento;DATE;Não;Não;Não;—;Não;—;Data em que o pagamento foi realizado.
+PAGAMENTO;forma_pagamento;VARCHAR(30);Não;Não;Não;—;Não;—;Forma utilizada no pagamento.
+PAGAMENTO;comprovante;VARCHAR(255);Não;Não;Sim;—;Não;—;Referência ou caminho do comprovante, quando disponível.
+SALDO_INICIAL_CAIXA;data_referencia;DATE;Sim;Não;Não;—;Não;—;Data a partir da qual o saldo inicial do caixa é considerado.
+SALDO_INICIAL_CAIXA;valor_inicial;DECIMAL(10,2);Não;Não;Não;—;Não;—;Valor existente no caixa na data de referência.
