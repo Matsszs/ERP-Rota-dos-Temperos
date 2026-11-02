@@ -148,10 +148,10 @@ ERP-Rota-dos-Temperos/
 │   ├── 03_carga_invalida.sql
 │   └── 04_consultas.sql
 └── evidencias/
-    ├── 01-estrutura-banco.png
-    ├── 02-relacionamento-pedidos.png
-    ├── 03-testes-integridade.png
-    └── 04-carga-invalida-restricoes.png
+    ├── 01-criacao-banco-vazio.png
+    ├── 02-carga-valida.png
+    ├── 03-carga-invalida.png
+    └── 04-consultas-gerenciais-auditoria.png
 ```
 
 O histórico de commits do repositório registra a evolução dos arquivos. As evidências de execução mostram a criação das tabelas, os relacionamentos consultados e os testes de integridade realizados no MySQL Workbench.
